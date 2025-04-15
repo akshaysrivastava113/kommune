@@ -9,4 +9,17 @@ export const createUser = async (email: string, password: string) => {
             password: hashed
         }
     });
-  }
+}
+
+export const verifyUser = async (email: string, password: string) => {
+    const user = await prisma.user.findFirst({
+        where: {
+            email
+        }
+    });
+
+    if (!user) return null;
+    const isMatch = await bcrypt.compare(password, user.password);
+    return isMatch ? user : null;
+    
+  };
