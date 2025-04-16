@@ -16,9 +16,6 @@ export const signup = async (req: Request, res: Response): Promise<any> => {
     if(!token) return res.status(400).json({message: "Could not sign in"});
     
     res.cookie('token', token, {
-        httpOnly: true, // JavaScript can't access it
-        secure: true,   // Only over HTTPS
-        sameSite: 'strict', // or 'Lax' depending on needs
         maxAge: 3600000 // 1 hour
     });
     res.status(201).json({token});
@@ -37,9 +34,6 @@ export const login = async ( req: Request, res: Response): Promise<any> => {
     if(!token) return res.status(400).json({message: "Could not sign in"});
 
     res.cookie('token', token, {
-        httpOnly: true, // JavaScript can't access it
-        secure: true,   // Only over HTTPS
-        sameSite: 'strict', // or 'Lax' depending on needs
         maxAge: 3600000 // 1 hour
     });
     res.status(201).json({token});

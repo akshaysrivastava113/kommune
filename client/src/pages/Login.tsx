@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 const backendUrl = process.env.BACKEND_URL;
 console.log(backendUrl);
 export default function Login(){
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -15,9 +16,12 @@ export default function Login(){
         };
         console.log(data);
 
-        axios.post(`http://localhost:3000/api/auth/login`, data)
+        axios.post(`http://localhost:3000/api/auth/login`, data, {
+            withCredentials: true
+          })
         .then(res => {
             console.log(res);
+            if(res.status == 201) navigate("/");
         })
         .catch(err => {
             console.error(err);
