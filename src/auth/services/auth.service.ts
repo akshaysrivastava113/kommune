@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import prisma from "../../prisma/client";
+import { Response } from "express";
 
 export const createUser = async (email: string, password: string) => {
     const hashed = await bcrypt.hash(password, 10);

@@ -1,14 +1,16 @@
 import { Request, Response, Router } from "express";
-import { signup } from "../controllers/auth.controller";
+import { login, logout, signup } from "../controllers/auth.controller";
+import { authenticateToken } from "../middlewares/authenticate.middleware";
 
 
 const router = Router();
 
-// router.post("/login", login);
-router.post("/signup", signup);
-// router.post("/logout", logout);
+router.get('/health' , authenticateToken,  (req: Request,res: Response) => {
+    res.send(200);
+});
 
-router.get("/", (req:Request, res: Response) => {
-    console.log(req.session);
-})
+router.post("/login", login);
+router.post("/signup", signup);
+router.post("/logout", logout);
+
 export default router;
