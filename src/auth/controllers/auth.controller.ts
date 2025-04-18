@@ -16,7 +16,9 @@ export const signup = async (req: Request, res: Response): Promise<any> => {
     if(!token) return res.status(400).json({message: "Could not sign in"});
     
     res.cookie('token', token, {
-        maxAge: 3600000 // 1 hour
+        httpOnly: true,  // Makes the cookie inaccessible to JavaScript (adds security)
+        maxAge: 3600000, // 1 hour
+        sameSite: 'strict', // Prevents CSRF attacks by restricting when cookies are sent
     });
     res.status(201).json({token});
 };
@@ -34,7 +36,9 @@ export const login = async ( req: Request, res: Response): Promise<any> => {
     if(!token) return res.status(400).json({message: "Could not sign in"});
 
     res.cookie('token', token, {
-        maxAge: 3600000 // 1 hour
+        httpOnly: true,  // Makes the cookie inaccessible to JavaScript (adds security)
+        maxAge: 3600000, // 1 hour
+        sameSite: 'strict', // Prevents CSRF attacks by restricting when cookies are sent
     });
     res.status(201).json({token});
 }

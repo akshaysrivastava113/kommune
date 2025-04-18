@@ -13,8 +13,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum ArticleType {
+  BLOG
+  KNOWLEDGEBASE
+  FORUM
+}
+
 model User {
   id    Int    @id @default(autoincrement())
   email String @unique
   password String
+  articles Article[]
+}
+
+model Article {
+  id  Int @id @default(autoincrement())
+  title String
+  description String
+  author User @relation(fields: [authorId], references: [id])
+  authorId Int
+  type ArticleType
+  createdAt DateTime
 }

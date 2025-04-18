@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './App.css'
 import Home from './pages/Home'
 import { Route, Routes } from 'react-router-dom';
@@ -8,23 +7,26 @@ import About from './pages/About';
 import Subheader from './components/common/Subheader';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-
+import { Provider as JotaiProvider } from 'jotai';
+import Create from './pages/Create';
 
 function App() {
-  const [count, setCount] = useState(0);
   return (
     <div className='min-h-screen w-full flex flex-col'>
-      <Header/>
-      <Subheader/>
-        <div className='flex-1'>
-          <Routes>
-            <Route path="/" element={<Home/>}/>
-            <Route path="/about" element={<About/>}/>
-            <Route path="/login" element={<Login/>}/>
-            <Route path="/signup" element={<Signup/>}/>
-          </Routes>
-        </div>
-      <Footer/>
+      <JotaiProvider>
+        <Header/>
+        <Subheader/>
+          <div className='flex-1'>
+            <Routes>
+              <Route path="/" element={<Home/>}/>
+              <Route path="/about" element={<About/>}/>
+              <Route path="/new" element={<Create/>}/>
+              <Route path="/login" element={<Login/>}/>
+              <Route path="/signup" element={<Signup/>}/>
+            </Routes>
+          </div>
+        <Footer/>
+      </JotaiProvider>
     </div>
   )
 }

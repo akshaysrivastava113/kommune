@@ -1,6 +1,11 @@
 import {ChevronUp, ChevronDown, Brain, SendHorizontal} from "lucide-react";
 import { useState } from "react";
+import { useAtom } from "jotai";
+import { signedToken } from "../../store";
+
 export default function CollectiveInterface() {
+    const [ signedTokenState ] = useAtom(signedToken);
+    console.log("signedTokenStatewd", signedTokenState);
     const [isExpanded, setIsExpanded] = useState(false);
     const [userQuery, setUserQuery] = useState("");
     const [convoArray, setConvoArray] = useState(["eef"]);

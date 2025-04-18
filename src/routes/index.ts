@@ -1,14 +1,9 @@
-import express, {Request, Response} from "express";
-import prisma from "../prisma/client";
-const app = express();
-require('dotenv').config();
+import {Request, Response, Router} from "express";
+const router = Router();
 
-app.get('/', (req: Request, res: Response) => {
-    console.log(req.session);
-    console.log("sessionID" , req.sessionID);
-    (req.session as any).visited = false;
-    res.send("Home route");
+router.get("/", (req: Request,res: Response) => {
+    res.send("Home");
 })
 
-export default app;
+export default router;
 

@@ -1,6 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import PrimaryButton from "../components/wrapper/PrimaryButton";
+import { Loader } from 'rsuite';
 
 const backendUrl = process.env.BACKEND_URL;
 console.log(backendUrl);
@@ -8,8 +11,10 @@ export default function Login(){
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const loginCall = () => {
+        setIsLoading(true);
         const data = {
             email,
             password
@@ -20,8 +25,17 @@ export default function Login(){
             withCredentials: true
           })
         .then(res => {
-            console.log(res);
-            if(res.status == 201) navigate("/");
+            if(res.status == 201) {
+                
+                console.log();
+                if(res.data.token){
+                    Cookies.set('isSignedIn', "true", { expires: 1 });
+                }
+                navigate("/");
+            }
+        })
+        .finally(() => {
+            setIsLoading(false);
         })
         .catch(err => {
             console.error(err);
@@ -35,7 +49,7 @@ export default function Login(){
                 <div className="flex flex-col w-full">
                     <input onChange={(e) => setEmail(e.target.value)} type="email" id="email" className="p-2 mb-4 border rounded" placeholder="Email" required />
                     <input onChange={(e) => setPassword(e.target.value)} type="password" id="password" className="p-2 mb-4 border rounded" placeholder="Password" required />
-                    <button onClick={loginCall} type="submit" className="p-2 bg-blue-500 text-white rounded">Login</button>
+                    <button onClick={loginCall} type="submit"><PrimaryButton className="flex justify-center items-center">{isLoading?<Loader/>:'Sign In'}</PrimaryButton></button>
                     <div className="text-center text-sm">
                     Don't have an account?{" "}
                     <Link to="/signup" className="text-aether-purple hover:text-aether-blue font-medium">
