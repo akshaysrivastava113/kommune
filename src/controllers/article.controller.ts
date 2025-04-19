@@ -7,9 +7,10 @@ interface CustomRequest extends Request {
   }
 
 export const createNewArticle = async (req: CustomRequest, res: Response) :Promise<any> => {
-    const {title, description, type} = req.body;
+    const {title, description, type, product} = req.body;
     const authorId = req.user.userId;
-    const article = await createArticle(title, description, authorId, type);
+    console.log("prod", product);
+    const article = await createArticle(title, description, authorId, type, product);
     if(!article) return res.status(401).json({message: "failed"});
     return res.status(201).json({message: "Created"});
 } 

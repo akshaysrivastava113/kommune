@@ -2,6 +2,7 @@ import { useState } from "react";
 import PageHeading from "../common/PageHeading";
 import PrimaryButton from "../wrapper/PrimaryButton";
 import axios from "axios";
+import { Products } from "../../utils/productValues";
 
 export default function CreateForm() {
     const [title, setTitle] = useState("");
@@ -11,7 +12,8 @@ export default function CreateForm() {
         const data = {
             title,
             description,
-            type: "BLOG"
+            type: "BLOG",
+            product: Products.PRODUCTONE
         }
         axios.post(`http://localhost:3000/api/article/create`, data, {withCredentials: true})
         .then((res) => {

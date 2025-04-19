@@ -19,6 +19,12 @@ enum ArticleType {
   FORUM
 }
 
+enum Product {
+  PRODUCTONE
+  PRODUCTTWO
+  PRODUCTTHREE
+}
+
 model User {
   id    Int    @id @default(autoincrement())
   email String @unique
@@ -33,5 +39,6 @@ model Article {
   author User @relation(fields: [authorId], references: [id])
   authorId Int
   type ArticleType
+  product Product?
   createdAt DateTime
 }
