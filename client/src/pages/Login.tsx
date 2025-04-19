@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import PrimaryButton from "../components/wrapper/PrimaryButton";
-import { Loader } from 'rsuite';
+import SpinLoader from "../components/wrapper/SpinLoader";
 
 const backendUrl = process.env.BACKEND_URL;
 console.log(backendUrl);
@@ -50,7 +50,7 @@ export default function Login(){
                 <div className="flex flex-col w-full">
                     <input onChange={(e) => setEmail(e.target.value)} type="email" id="email" className="p-2 mb-4 border rounded" placeholder="Email" required />
                     <input onChange={(e) => setPassword(e.target.value)} type="password" id="password" className="p-2 mb-4 border rounded" placeholder="Password" required />
-                    <button onClick={loginCall} type="submit"><PrimaryButton className="flex justify-center items-center">{isLoading?<Loader/>:'Sign In'}</PrimaryButton></button>
+                    <button disabled={isLoading} onClick={loginCall} type="submit"><PrimaryButton className={`flex justify-center items-center ${isLoading&&`opacity-50`}`}>{isLoading?<SpinLoader color="#FFFFFF"/>:'Sign In'}</PrimaryButton></button>
                     <div className="text-center text-sm">
                     Don't have an account?{" "}
                     <Link to="/signup" className="text-aether-purple hover:text-aether-blue font-medium">
