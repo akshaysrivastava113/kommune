@@ -1,8 +1,10 @@
 import express from "express";
-import articleRoutes from "./routes/articles/article.route";
-import routes from "./routes";
 import authRoutes from "./auth";
+import routes from "./routes";
+import articleRoutes from "./routes/articles/article.route";
+import commentRoutes from "./routes/comments/comments.route";
 import cors from "cors";
+
 const cookieParser = require('cookie-parser');
 
 const frontendUrl = process.env.FRONTEND_URL;
@@ -18,6 +20,7 @@ app.use(express.json());
 
 app.use('/api', routes);
 app.use('/api/article', articleRoutes);
+app.use('/api/comments', commentRoutes);
 app.use('/api/auth', authRoutes);
 
 export default app;

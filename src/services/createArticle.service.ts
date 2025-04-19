@@ -13,7 +13,8 @@ export const createArticle = async (title: string, description: string, authorId
             },
             type,
             product,
-            createdAt: new Date()
+            createdAt: new Date(),
+            likes: 0
         }
     })
     if(!createArticleRes) return null;
