@@ -1,9 +1,9 @@
-import React from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <nav className="bg-white w-1/2 px-6 py-4 flex justify-between items-center">
-      <div className="text-xl font-extrabold text-brand-primary">kommune</div>
+      <Link to="/"><div className="text-xl font-extrabold text-brand-primary">kommune</div></Link>
 
       {/* Hover container */}
       <div className="relative group inline-block">
@@ -13,24 +13,24 @@ const Navbar = () => {
 
         {/* Dropdown */}
         <div className="absolute border right-0 mt-2 w-40 bg-white text-black rounded shadow-lg opacity-0 invisible group-hover:visible group-hover:opacity-100 transition-all duration-200 z-10">
-          <a
-            href="#profile"
+          <Link
+            to="/productone"
             className="block px-4 py-2 hover:bg-gray-100"
           >
             Product One
-          </a>
-          <a
-            href="#settings"
+          </Link>
+          <Link
+            to="/producttwo"
             className="block px-4 py-2 hover:bg-gray-100"
           >
             Product Two
-          </a>
-          <a
-            href="#logout"
+          </Link>
+          <Link
+            to="/productthree"
             className="block px-4 py-2 hover:bg-gray-100"
           >
             Product Three
-          </a>
+          </Link>
         </div>
       </div>
 

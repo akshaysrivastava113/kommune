@@ -1,4 +1,4 @@
-import CreateForm from "../components/Articles/CreateForm";
+import CreateForm from "../components/articles/CreateForm";
 
 export default function Create() {
     return (

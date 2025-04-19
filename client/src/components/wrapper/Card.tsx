@@ -1,7 +1,15 @@
-export default function Card({child}: {child: React.ReactNode}) {
+import { ReactNode } from "react"
+
+type CardProps = {
+    children?: ReactNode,
+    className?: string
+}
+
+
+export default function Card({children, className = ""}: CardProps) {
     return (
-        <div className="">
-            {child}
+        <div className="w-48 h-24 rounded-lg border bg-card shadow-md flex justify-center items-center m-2 p-2">
+            {children}
         </div>
     )
 }
