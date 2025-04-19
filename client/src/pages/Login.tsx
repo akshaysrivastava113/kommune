@@ -29,7 +29,8 @@ export default function Login(){
                 
                 console.log();
                 if(res.data.token){
-                    Cookies.set('isSignedIn', "true", { expires: 1 });
+                    const oneHourFromNow = new Date(new Date().getTime() + 60 * 60 * 1000);
+                    Cookies.set('isSignedIn', "true", { expires: oneHourFromNow });
                 }
                 navigate("/");
             }
