@@ -1,0 +1,97 @@
+<style>
+    .lia-panel .lia-panel-heading-bar {
+        padding: 0 0 0;
+    }
+    .lia-panel .lia-panel-content {
+        padding: 0 0 0;
+    }
+    .infoBox {
+            border-left: 4px solid;
+  	    border-radius: 12px;
+	    padding: 10px;
+	    width: 100%;
+	    border-color: #00427C;
+	    background-color: #ebf7fe;
+    }
+    .infoImg {
+        width: 40px; 
+	    padding-right: 5px;
+    }
+    .sso-text-heading {
+        font-size: 16px;
+color: #00427C;
+    }
+    p.sso-text {
+        margin: 0 0 5px;
+        font-size: 14px;
+    }
+    .lia-fieldset-title::after {
+        content: none !important;
+    }
+    </style>
+        
+    <div class="infoBox">
+        <h4 class="sso-text-heading"><img class="infoImg" src="${asset.get("/html/assets/PS_Icons_SecurityShield_Color.png")}" />Single Sign On Customers</h4>
+        <div>
+        <p class="sso-text">If you are using a product that has Single Sign-On (SSO) access to the community, log in through your product's help menu to gain entry to our Community.<a style="color: #00CCFF;
+    font-weight: 700;" href="https://help.powerschool.com/t5/Getting-Started/Getting-Started-on-PowerSchool-Community/ba-p/28101"> List of SSO Products</a></p>
+        </div>
+    </div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const loginButton = document.getElementById("submitContext");
+
+    if(loginButton){
+        loginButton.style.backgroundColor = "#DE4278";
+        loginButton.style.borderColor = "#DE4278";
+        loginButton.style.fontWeight = "bold";
+    } else {
+        console.warn('login button not found');
+    }
+
+    const registerButton = document.getElementById("submitContext_0");
+
+    if(registerButton){
+        registerButton.style.backgroundColor = "#FFFFFF";
+        registerButton.style.color= "#0066A5";
+        registerButton.style.fontWeight = "bold";
+
+    } else {
+        console.warn('login button not found');
+    }
+
+
+
+    // Script to hide, DELETE LATER
+
+    // const loginSep = document.getElementById("login-sep");
+
+    // if(loginSep){
+    //     loginSep.style.display = "none";
+
+    // } else {
+    //     console.warn('login button not found');
+    // }
+
+    // const ssoHead = document.getElementById("sso-heading");
+
+    // if(ssoHead){
+    //     ssoHead.style.display = "none";
+
+    // } else {
+    //     console.warn('login button not found');
+    // }
+
+    // const ssoDesc = document.getElementById("sso-desc");
+
+    // if(ssoDesc){
+    //     ssoDesc.style.display = "none";
+
+    // } else {
+    //     console.warn('login button not found');
+    // }
+
+});
+
+</script>
