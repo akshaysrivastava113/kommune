@@ -14,15 +14,15 @@ datasource db {
 }
 
 enum ArticleType {
-  BLOG
-  KNOWLEDGEBASE
-  FORUM
+  blog
+  knowledgebase
+  forum
 }
 
 enum Product {
-  PRODUCTONE
-  PRODUCTTWO
-  PRODUCTTHREE
+  productone
+  producttwo
+  productthree
 }
 
 model User {

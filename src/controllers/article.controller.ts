@@ -3,11 +3,16 @@ import { createArticle } from "../services/createArticle.service";
 import { getAllArticlesService } from "../services/getAllArticles.service";
 import { getArticleService } from "../services/getArticle.service";
 import { likeArticleService } from "../services/likeArticle.service";
-import { Product } from "@prisma/client";
+import { ArticleType, Product } from "@prisma/client";
 import { getArticlesFilteredService } from "../services/getArticlesFiltered.service";
 
 interface CustomRequest extends Request {
     user?: any;
+}
+
+interface ArticleFilter {
+    product?: Product,
+    type?: ArticleType 
 }
 
 export const getAllArticles = async (req: Request, res: Response) :Promise<any> => {
@@ -25,10 +30,13 @@ export const getArticle = async (req: Request, res: Response): Promise<any> => {
 }
 
 export const getArticlesFiltered = async(req: Request, res: Response): Promise<any> => {
-    let { product, type } = req.body;
-    const articlesFiltered = await getArticlesFilteredService(product, type);
-    if(!articlesFiltered) return res.status(401).json({message: "not found"});
-    return res.status(200).json(articlesFiltered);
+    let { product, type } = req.query;
+    const productType = product as Product | undefined;
+    const typeType = type as ArticleType | undefined;
+
+    // const articlesFiltered = await getArticlesFilteredService(productType, typeType);
+    // if(!articlesFiltered) return res.status(401).json({message: "not found"});
+    // return res.status(200).json(articlesFiltered);
 }
 
 export const likeArticle = async ( req: CustomRequest, res: Response): Promise<any> => {

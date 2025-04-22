@@ -1,6 +1,13 @@
 import { ArticleType, Product } from "@prisma/client";
 import prisma from "../prisma/client"
-export const getArticlesFilteredService = async (product: Product, type: ArticleType) => {
+
+interface ArticleFilter {
+    product?: Product | undefined,
+    type?: ArticleType | undefined 
+}
+
+export const getArticlesFilteredService = async ({ product, type}: ArticleFilter) => {
+
     const article = prisma.article.findMany({
         where: {
             product,
