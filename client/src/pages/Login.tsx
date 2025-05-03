@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import PrimaryButton from "../components/wrapper/PrimaryButton";
 import SpinLoader from "../components/wrapper/SpinLoader";
+import { useAuth } from "../context/AuthContext";
 
 const backendUrl = process.env.BACKEND_URL;
 console.log(backendUrl);
 export default function Login(){
-    const navigate = useNavigate();
+    const { loginContext } = useAuth();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -25,14 +25,14 @@ export default function Login(){
             withCredentials: true
           })
         .then(res => {
-            if(res.status == 201) {
+            if(res.status == 200) {
                 
-                console.log();
                 if(res.data.token){
-                    const oneHourFromNow = new Date(new Date().getTime() + 60 * 60 * 1000);
-                    Cookies.set('isSignedIn', "true", { expires: oneHourFromNow });
-                }
-                navigate("/");
+                    //Call login and send the token as arg instead
+                    console.log(loginContext);
+                    loginContext();
+                }   
+                window.location.href = '/';
             }
         })
         .finally(() => {
@@ -51,9 +51,9 @@ export default function Login(){
                     <input onChange={(e) => setEmail(e.target.value)} type="email" id="email" className="p-2 mb-4 border rounded" placeholder="Email" required />
                     <input onChange={(e) => setPassword(e.target.value)} type="password" id="password" className="p-2 mb-4 border rounded" placeholder="Password" required />
                     <button disabled={isLoading} onClick={loginCall} type="submit"><PrimaryButton className={`flex justify-center items-center ${isLoading&&`opacity-50`}`}>{isLoading?<SpinLoader color="#FFFFFF"/>:'Sign In'}</PrimaryButton></button>
-                    <div className="text-center text-sm">
+                    <div className="text-center text-sm mt-2">
                     Don't have an account?{" "}
-                    <Link to="/signup" className="text-aether-purple hover:text-aether-blue font-medium">
+                    <Link to="/signup" className="text-blue-300 hover:text-aether-blue font-medium">
                         Sign up
                     </Link>
                     </div>

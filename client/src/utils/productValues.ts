@@ -1,5 +1,0 @@
-export const enum Products{
-    PRODUCTONE = "PRODUCTONE",
-    PRODUCTTWO = "PRODUCTTWO",
-    PRODUCTTHREE = "PRODUCTTHREE"
-}

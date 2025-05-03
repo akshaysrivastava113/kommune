@@ -5,7 +5,7 @@ interface SpinLoaderProps  {
 export default function SpinLoader({color}: SpinLoaderProps) {
     return (
         <div>
-            <ClipLoader color={color} />
+            <ClipLoader size={25} color={color} />
         </div>
     )
 }

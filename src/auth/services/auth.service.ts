@@ -3,6 +3,14 @@ import prisma from "../../prisma/client";
 import { Response } from "express";
 
 export const createUser = async (email: string, password: string) => {
+    const userExists = await prisma.user.findUnique({
+        where: {
+            email
+        }
+    });
+
+    if(userExists) return null;
+
     const hashed = await bcrypt.hash(password, 10);
     return prisma.user.create({
         data:{

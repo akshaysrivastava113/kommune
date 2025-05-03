@@ -2,34 +2,42 @@ import { useState } from "react";
 import PageHeading from "../common/PageHeading";
 import PrimaryButton from "../wrapper/PrimaryButton";
 import axios from "axios";
-import { Products } from "../../utils/productValues";
+import { ArticleType, Product } from "../../utils/constants";
+import { base_url } from "../../config";
 
 export default function CreateForm() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
 
-    const submitArticle = () => {
-        const data = {
-            title,
-            description,
-            type: "BLOG",
-            product: Products.PRODUCTONE
-        }
-        axios.post(`http://localhost:3000/api/article/create`, data, {withCredentials: true})
-        .then((res) => {
+    const submitArticle =  async() => {
+        try{
+            const data = {
+                title,
+                description,
+                type: ArticleType.BLOG,
+                product: Product.PRODUCTONE
+            }
+            console.log(data);
+            const res = await axios.post(`${base_url}/api/article/`, data, {withCredentials: true});
             console.log(res);
-        })
-        .catch((err) => {
-            console.error(err);
-        })
+            if(res.data.status == 201){
+                //Success alert or redirect to article page
+            } else {
+
+            }
+        } catch( err ) {
+           console.error(err);
+        }
     }
 
     return (
-        <div className="border w-1/3 flex flex-col justify-center items-center p-4 m-4">
+        <div className="w-1/3 flex flex-col justify-center items-start p-4 m-4">
             <PageHeading>Create New Article</PageHeading>
-            <input onChange={(e) => setTitle(e.target.value)} placeholder="Title" className="p-2 m-2 border rounded-md w-full"></input>
-            <textarea onChange={(e) => setDescription(e.target.value)} rows={5} placeholder="Description" className="p-2 m-2 border rounded-md w-full"></textarea>
-            <PrimaryButton><button onClick={submitArticle}>Submit</button></PrimaryButton>
+            <input onChange={(e) => setTitle(e.target.value)} placeholder="Title" className="p-2 mt-2 border rounded-md w-full"></input>
+            <textarea onChange={(e) => setDescription(e.target.value)} rows={5} placeholder="Description" className="p-2 mt-2 border rounded-md w-full"></textarea>
+            <div className="w-full flex justify-end">
+                <PrimaryButton className="ml-0 mr-0 mt-2"><button onClick={submitArticle}>Submit</button></PrimaryButton>
+            </div>
         </div>
     )
 }
