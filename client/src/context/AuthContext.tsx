@@ -3,15 +3,18 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext({
     isLoggedIn: false,
+    authLoading: true,
     loginContext: () => {}
 });
 
 export const AuthProvider = ({children}: any) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [authLoading, setAuthLoading] = useState(true);
 
     useEffect(() => {
         const token = Cookies.get('isSignedIn');
         setIsLoggedIn(!!token);
+        setAuthLoading(false);
     }, []);
 
     const loginContext = () => {
@@ -20,7 +23,7 @@ export const AuthProvider = ({children}: any) => {
         Cookies.set("isSignedIn", "true", { expires: oneHourFromNow });
     }
     return (
-        <AuthContext.Provider value={{isLoggedIn, loginContext}}>
+        <AuthContext.Provider value={{isLoggedIn, authLoading, loginContext}}>
             {children}
         </AuthContext.Provider>
     )

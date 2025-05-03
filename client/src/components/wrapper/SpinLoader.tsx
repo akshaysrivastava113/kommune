@@ -1,11 +1,12 @@
 import { ClipLoader } from 'react-spinners';
 interface SpinLoaderProps  {
-    color?: string
+    color?: string,
+    size?: number
 }
-export default function SpinLoader({color}: SpinLoaderProps) {
+export default function SpinLoader({color, size=25}: SpinLoaderProps) {
     return (
         <div>
-            <ClipLoader size={25} color={color} />
+            <ClipLoader color={color} size={size}/>
         </div>
     )
 }

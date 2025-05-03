@@ -1,19 +1,18 @@
 import { Rss, BookOpenCheck, Newspaper } from "lucide-react";
 import PageHeading from "../common/PageHeading";
-import Card from "../wrapper/Card";
 import { useState } from "react";
 import ArticlesList from "../articles/ArticlesList";
 
 type ProductContainerProps = {
-    productId: String,
+    productId: String | any,
     productTitle: String | any
 }
-const subPages = ["Blog", "Forum", "Knowledge Base"];
+const subPages = ["Blog", "Forum", "KnowledgeBase"];
 
 export default function ProductContainer({productId, productTitle}: ProductContainerProps) {
-    const [selectedType, setSelectedType] = useState("");
+    const [selectedType, setSelectedType] = useState("Blog");
         return (
-            <div className="w-1/3 flex flex-col justify-start items-start p-4 m-4">
+            <div className="w-full flex flex-col justify-start items-start p-4 m-4">
                 <PageHeading>{productTitle}</PageHeading>
                 <div className=" bg-brand-gray flex justify-start items-start p-1 m-2 rounded-md">
                     {subPages.map((subPage :string) => {
@@ -25,8 +24,8 @@ export default function ProductContainer({productId, productTitle}: ProductConta
                         }
                     )}
                 </div>
-                <div>
-                    <ArticlesList type={selectedType} product={productId} />
+                <div className="w-full">
+                    <ArticlesList product={productId} type={selectedType} />
                 </div>
             </div>
         )

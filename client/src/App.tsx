@@ -10,6 +10,8 @@ import { Provider as JotaiProvider } from 'jotai';
 import Create from './pages/Create';
 import Explore from './pages/Explore';
 import Product from './pages/Product';
+import { ToastContainer } from 'react-toastify';
+import ArticleView from './pages/ArticleView';
 
 function App() {
   return (
@@ -25,10 +27,12 @@ function App() {
               <Route path="/login" element={<Login/>}/>
               <Route path="/signup" element={<Signup/>}/>
               <Route path="/:productId" element={<Product/>}/>
+              <Route path="/article/:articleId" element={<ArticleView/>}/>
             </Routes>
           </div>
         <Footer/>
       </JotaiProvider>
+      <ToastContainer/>
     </div>
   )
 }

@@ -31,12 +31,13 @@ export const getArticle = async (req: Request, res: Response): Promise<any> => {
 
 export const getArticlesFiltered = async(req: Request, res: Response): Promise<any> => {
     let { product, type } = req.query;
-    const productType = product as Product | undefined;
-    const typeType = type as ArticleType | undefined;
-
-    // const articlesFiltered = await getArticlesFilteredService(productType, typeType);
-    // if(!articlesFiltered) return res.status(401).json({message: "not found"});
-    // return res.status(200).json(articlesFiltered);
+    let productString = String(product);
+    let articleTypeString = String(type);
+    const productType = productString.toUpperCase() as Product;
+    const typeType = articleTypeString.toUpperCase() as ArticleType;
+    const articlesFiltered = await getArticlesFilteredService(productType, typeType);
+    if(!articlesFiltered) return res.status(401).json({message: "not found"});
+    return res.status(200).json(articlesFiltered);
 }
 
 export const likeArticle = async ( req: CustomRequest, res: Response): Promise<any> => {

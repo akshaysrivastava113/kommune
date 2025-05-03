@@ -12,6 +12,9 @@ export default {
           DEFAULT: '#9B87F5',
           primary: '#9B87F5',
           light: '#C3B8FA',
+          purple: '#9b87f5',
+          blue: '#87b5f5',
+          teal: '#87f5e9',
           gray: '#F1F5F9'
         },
       },
