@@ -3,6 +3,7 @@ import Signin from "./Signin";
 import PrimaryButton from "../wrapper/PrimaryButton";
 import Navbar from "./NavBar";
 import { useAuth } from "../../context/AuthContext";
+import { CircleUser } from "lucide-react";
 
 export default function Header() {
     const { isLoggedIn } = useAuth();
@@ -13,9 +14,14 @@ export default function Header() {
                 <Link to="/explore"><PrimaryButton><p>Explore</p></PrimaryButton></Link> */}
                 <Navbar/>
             </div>
-            <div className="flex flex-[1] justify-end">
+            <div className="flex flex-[1] justify-end items-center">
                 {isLoggedIn&&<Link to="/new"><PrimaryButton><p>Create Article</p></PrimaryButton></Link>}
                 <Signin/>
+                {isLoggedIn&&
+                    <div className="m-2 ml-6 cursor-pointer">
+                        <CircleUser />
+                    </div>
+                }
             </div>
         </div>
     )

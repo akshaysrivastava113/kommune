@@ -12,6 +12,7 @@ type ArticlesListProps = {
 }
 
 type Article = {
+    _count: any;
     id: string,
     title: string;
     description: string;
@@ -59,7 +60,7 @@ export default function ArticlesList({product, type }: ArticlesListProps){
             {articlesList.map((article) => {
                 const formattedDate = new Date(article.createdAt).toLocaleDateString();
                 return (
-                        <ArticleCard id={article.id} title={article.title} description={article.description} createdAt={formattedDate} postType={article.type} postLikes={article.likes} commentsSize={article.comments?.length??0}/>
+                        <ArticleCard id={article.id} title={article.title} description={article.description} createdAt={formattedDate} postType={article.type} postLikes={article._count.likes} commentsSize={article._count.comments}/>
                     )
                 }
             )}

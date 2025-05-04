@@ -2,7 +2,6 @@ import { useState } from "react";
 import PageHeading from "../common/PageHeading";
 import PrimaryButton from "../wrapper/PrimaryButton";
 import axios from "axios";
-import { ArticleType, Product } from "../../utils/constants";
 import { base_url } from "../../config";
 import { toast } from "react-toastify";
 

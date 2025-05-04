@@ -10,7 +10,6 @@ import Alert from "../components/common/Alert";
 const baseUrl = base_url;
 
 export default function Signup(){
-    const navigate = useNavigate();
     const[isLoading, setIsLoading] = useState(false);
     const [displayMessage, setDisplayMessage] = useState(false);
     const [errorColor, setErrorColor] = useState("red");

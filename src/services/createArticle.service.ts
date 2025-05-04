@@ -14,8 +14,7 @@ export const createArticle = async (title: string, description: string, authorId
             },
             type,
             product,
-            createdAt: new Date(),
-            likes: 0
+            createdAt: new Date()
         }
     })
     if(!createArticleRes) return null;

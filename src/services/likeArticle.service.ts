@@ -1,14 +1,12 @@
 
 import prisma from "../prisma/client"
-export const likeArticleService = async (articleId: number, authorId: number) => {
-    const createArticleRes = prisma.article.update({
-        where: { id: articleId },
-        data:{ 
-            likes: {
-                increment: 1
-            }
+export const likeArticleService = async (articleId: number, userId: number) => {
+    const likeArticlesServiceRes = prisma.articleLike.create({
+        data: {
+            userId,
+            articleId
         }
-    });
-    if(!createArticleRes) return null;
-    return createArticleRes;
+    })
+    if(!likeArticlesServiceRes) return null;
+    return likeArticlesServiceRes;
 }

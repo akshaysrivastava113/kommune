@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { createNewArticle, getAllArticles, getArticle, getArticlesFiltered, likeArticle } from "../../controllers/article.controller";
+import { addComment, createNewArticle, getAllArticles, getArticle, getArticlesFiltered, getComments, likeArticle } from "../../controllers/article.controller";
 import { verifyToken } from "../../middlewares/verifyToken.middleware";
 
 const router = Router();
@@ -13,8 +13,10 @@ router.get("/all", getAllArticles);
 router.use(verifyToken);
 router.get("/:id", getArticle);
 router.get("/", getArticlesFiltered);
+router.get("/:articleId/comments", getComments);
+router.post("/:articleId/comments", addComment);
 router.post("/", createNewArticle);
-router.put("/:articleId/like", likeArticle);
+router.post("/:articleId/like", likeArticle);
 
 
 export default router;

@@ -1,4 +1,3 @@
-import { Rss, BookOpenCheck, Newspaper } from "lucide-react";
 import PageHeading from "../common/PageHeading";
 import { useState } from "react";
 import ArticlesList from "../articles/ArticlesList";
