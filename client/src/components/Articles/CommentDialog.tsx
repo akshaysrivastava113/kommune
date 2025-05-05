@@ -1,19 +1,41 @@
 import axios from "axios";
 import { base_url } from "../../config";
 import { useEffect, useState } from "react";
-import { Heart, MessageSquare } from "lucide-react";
-import CommentsList from "./CommentsList";
-import CommentBox from "./CommentBox";
+import { MessageSquare } from "lucide-react";
 import { toast } from "react-toastify";
 import SpinLoader from "../wrapper/SpinLoader";
 import PrimaryButton from "../wrapper/PrimaryButton";
+const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+// const tempComment = {
+//     id: 1,
+//     body: commentBody,
+//     postedDate: new Date(),
+//     authorId: 10,
+//     articleId: 13,
+//     author: {
+//         "id": 10,
+//         "email": "aksh1@test.com",
+//         "password": "$2b$10$GyIP2OxXCWouoPMqDA8wyOSKRp1pWZrJySeKPr0hwH5WLetCzgIWO"
+//     }
+// }
 
 type CommentDialogProps = {
     articleId: string
 }
 export default function CommentDialog(props: CommentDialogProps) {
 
-    const [allComments, setAllComments] = useState([]);
+    const [allComments, setAllComments] = useState<Array<{
+        id: number;
+        body: string;
+        postedDate: Date;
+        authorId: number;
+        articleId: number;
+        author: {
+            id: number;
+            email: string;
+            password: string;
+        };
+    }>>([]);
     const [commentsNumber, setCommentsNumber] = useState([]);
     const [commentBody, setCommentBody] = useState("");
     const [isLoading, setIsSLoading] = useState(false);
@@ -38,13 +60,24 @@ export default function CommentDialog(props: CommentDialogProps) {
         handelFetch();
     }, []);
 
-    useEffect(() => {
-        handelFetch();
-    }, [isSubmitting]);
-
     const handleSubmit = async () => {
         console.log("Commented");
         setIsSubmitting(true);
+        const optimisticCommentData = {
+            id: 1,
+            body: commentBody,
+            postedDate: new Date(),
+            authorId: 10,
+            articleId: 13,
+            author: {
+                "id": 10,
+                "email": "aksh1@test.com",
+                "password": "$2b$10$GyIP2OxXCWouoPMqDA8wyOSKRp1pWZrJySeKPr0hwH5WLetCzgIWO"
+            }
+        }
+        setAllComments((prev) => [...prev, optimisticCommentData]);
+
+
         const data = {
             body: commentBody 
         }
@@ -55,6 +88,8 @@ export default function CommentDialog(props: CommentDialogProps) {
             toast.success("Commented", {
                 position: "bottom-right"
             });
+            await wait(2000); // wait for 2 seconds
+            handelFetch();
         } catch(e){
             console.error(e);
             setIsSubmitting(false);
@@ -64,9 +99,6 @@ export default function CommentDialog(props: CommentDialogProps) {
         }
     }
 
-    if(isLoading) return <div className="w-full h-full flex justify-center items-center mt-10">
-                <SpinLoader size={40}/>
-            </div>
     return (
         <div className="flex flex-col justify-center items-start">
             <div className="flex justify-center items-center p-2">

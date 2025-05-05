@@ -4,7 +4,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 const AuthContext = createContext({
     isLoggedIn: false,
     authLoading: true,
-    loginContext: () => {}
+    loginContext: (email: string) => {},
+    logoutContext: () => {}
 });
 
 export const AuthProvider = ({children}: any) => {
@@ -17,13 +18,21 @@ export const AuthProvider = ({children}: any) => {
         setAuthLoading(false);
     }, []);
 
-    const loginContext = () => {
+    const loginContext = (email: string) => {
         console.log("login called");
         const oneHourFromNow = new Date(new Date().getTime() + 60 * 60 * 1000);
+        Cookies.set("user", email, { expires: oneHourFromNow });
         Cookies.set("isSignedIn", "true", { expires: oneHourFromNow });
     }
+
+
+    const logoutContext = () => {
+        Cookies.remove('isSignedIn');
+        setIsLoggedIn(false);
+      };
+
     return (
-        <AuthContext.Provider value={{isLoggedIn, authLoading, loginContext}}>
+        <AuthContext.Provider value={{isLoggedIn, authLoading, loginContext, logoutContext}}>
             {children}
         </AuthContext.Provider>
     )

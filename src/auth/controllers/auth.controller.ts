@@ -18,7 +18,10 @@ export const signup = async (req: Request, res: Response): Promise<any> => {
             maxAge: 3600000, // 1 hour
             sameSite: 'strict', // Prevents CSRF attacks by restricting when cookies are sent
         });
-        res.status(201).json({token});
+        res.status(201).json({
+            email,
+            token
+        });
     } else {
         return res.status(409).json({message: 'User already exists'});
     }
@@ -43,10 +46,14 @@ export const login = async ( req: Request, res: Response): Promise<any> => {
         maxAge: 3600000, // 1 hour
         sameSite: 'strict', // Prevents CSRF attacks by restricting when cookies are sent
     });
-    res.status(200).json({token});
+    res.status(200).json({
+        email,
+        token
+    });
 }
 
 export const logout = (req:Request, res: Response) => {
-    // res.clearCookie('token', { httpOnly: true, sameSite: 'strict', secure: true });
+    console.log("received logout")
+    res.clearCookie('token', { httpOnly: true, sameSite: 'strict', secure: true });
     res.send({ message: 'Logged out' });
   }

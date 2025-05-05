@@ -25,12 +25,14 @@ export default function Login(){
             withCredentials: true
           })
         .then(res => {
+            console.log(res);
             if(res.status == 200) {
                 
                 if(res.data.token){
                     //Call login and send the token as arg instead
+                    console.log(res.data.email)
                     console.log(loginContext);
-                    loginContext();
+                    loginContext(res.data.email);
                 }   
                 window.location.href = '/';
             }
