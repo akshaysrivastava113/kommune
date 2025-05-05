@@ -3,7 +3,7 @@ import { base_url } from "../../config";
 import { useEffect, useState } from "react";
 import { MessageSquare } from "lucide-react";
 import { toast } from "react-toastify";
-import SpinLoader from "../wrapper/SpinLoader";
+import Cookies from 'js-cookie';
 import PrimaryButton from "../wrapper/PrimaryButton";
 const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 // const tempComment = {
@@ -22,18 +22,18 @@ const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 type CommentDialogProps = {
     articleId: string
 }
+const userEmail = String(Cookies.get('user'));
 export default function CommentDialog(props: CommentDialogProps) {
 
     const [allComments, setAllComments] = useState<Array<{
-        id: number;
+        id?: number;
         body: string;
         postedDate: Date;
-        authorId: number;
-        articleId: number;
+        authorId?: number;
+        articleId?: number;
         author: {
-            id: number;
+            id?: number;
             email: string;
-            password: string;
         };
     }>>([]);
     const [commentsNumber, setCommentsNumber] = useState([]);
@@ -64,15 +64,10 @@ export default function CommentDialog(props: CommentDialogProps) {
         console.log("Commented");
         setIsSubmitting(true);
         const optimisticCommentData = {
-            id: 1,
             body: commentBody,
             postedDate: new Date(),
-            authorId: 10,
-            articleId: 13,
             author: {
-                "id": 10,
-                "email": "aksh1@test.com",
-                "password": "$2b$10$GyIP2OxXCWouoPMqDA8wyOSKRp1pWZrJySeKPr0hwH5WLetCzgIWO"
+                "email": userEmail
             }
         }
         setAllComments((prev) => [...prev, optimisticCommentData]);

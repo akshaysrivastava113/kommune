@@ -55,6 +55,11 @@ export default function ArticlesList({product, type }: ArticlesListProps){
             <SpinLoader size={40}/>
         </div>
     );
+    if(articlesList.length === 0) return(
+        <div className="w-full flex justify-start items-start m-4">
+            <h2>No articles here yet. Be the first to publish one!</h2>
+        </div>
+    )
     return (
         <div className="grid grid-cols-4 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {articlesList.map((article) => {

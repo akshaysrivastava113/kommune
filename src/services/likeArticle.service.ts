@@ -1,7 +1,7 @@
 
 import prisma from "../prisma/client"
 export const likeArticleService = async (articleId: number, userId: number) => {
-    const likeArticlesServiceRes = prisma.articleLike.create({
+    const likeArticlesServiceRes = await prisma.articleLike.create({
         data: {
             userId,
             articleId

@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { addComment, createNewArticle, getAllArticles, getArticle, getArticlesFiltered, getComments, likeArticle } from "../../controllers/article.controller";
+import { addComment, createNewArticle, getAllArticles, getArticle, getArticlesFiltered, getComments, likeArticle, unlikeArticle } from "../../controllers/article.controller";
 import { verifyToken } from "../../middlewares/verifyToken.middleware";
 
 const router = Router();
@@ -17,6 +17,7 @@ router.get("/:articleId/comments", getComments);
 router.post("/:articleId/comments", addComment);
 router.post("/", createNewArticle);
 router.post("/:articleId/like", likeArticle);
+router.delete("/:articleId/like", unlikeArticle);
 
 
 export default router;

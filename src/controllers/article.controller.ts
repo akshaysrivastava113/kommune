@@ -8,6 +8,7 @@ import { getArticlesFilteredService } from "../services/getArticlesFiltered.serv
 import { updateUserLikesService } from "../services/updateUserLikes.service";
 import { createNewCommentService } from "../services/createNewComment.service";
 import { getCommentsService } from "../services/getComments.service";
+import { unlikeArticleService } from "../services/unlikeArticle.service";
 
 interface CustomRequest extends Request {
     user?: any;
@@ -74,6 +75,17 @@ export const likeArticle = async ( req: CustomRequest, res: Response): Promise<a
     console.log(like);
     if(!like) return res.status(401).json({message: "failed"});
     return res.status(201).json({message: "Updated"});  
+}
+
+export const unlikeArticle = async (req: CustomRequest, res: Response): Promise<any> => {
+    let recId = req.params.articleId;
+    console.log(recId);
+    let articleId: number = Number(recId);
+    const userId = req.user.userId;
+    const unlike = await unlikeArticleService(articleId, userId);
+    console.log(unlike);
+    if(!unlike) return res.status(401).json({message: "failed"});
+    return res.status(201).json({message: "Updated"}); 
 }
 export const createNewArticle = async (req: CustomRequest, res: Response) :Promise<any> => {
     const {title, description, type, product} = req.body;

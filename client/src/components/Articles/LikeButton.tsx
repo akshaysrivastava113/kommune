@@ -18,18 +18,24 @@ export default function LikeButton(props: LikeButtonProps) {
             if(!props.hasLiked){
                 props.setHasLiked(true);
                 props.setLikes((likes:any) => likes+1)
+            } else {
+                props.setHasLiked(false);
+                props.setLikes((likes:any) => likes>0?likes-1:0)
             }
             const data = {
                 id: props.id
             }
             try {
                 if(!props.hasLiked){
+                    console.log("Liked");
                     const res = await axios.post(`${base_url}/api/article/${props.id}/like`, data, { withCredentials: true });
                     
                     console.log(res);
                 } else {
                     //unlike
-                    console.log("Unlike");
+                    console.log("Unliked");
+                    const res = await axios.delete(`${base_url}/api/article/${props.id}/like`, { withCredentials: true });
+                    console.log(res);
                 }
             } catch(e){
                 console.error(e);

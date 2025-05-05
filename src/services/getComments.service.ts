@@ -7,7 +7,11 @@ export const getCommentsService = async (id: number) => {
             },
             comments: {
                 include: {
-                  author: true // optional: include commenter details
+                  author: {
+                    select: {
+                        email: true
+                    }
+                  } // optional: include commenter details
                 }
             },
         },
